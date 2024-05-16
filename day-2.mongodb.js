@@ -184,8 +184,6 @@ db.grades.find();
 use('okul')
 db.grades.aggregate({$group:{"_id":"$assignment", "total_points":{$sum:"$points"}}});
 
-
-
 //2-assignment değeri 4 ten küçük olan her bir assignment için
 //max puanları hesaplayıp azalan şekilde listeleyelim
 
@@ -198,8 +196,6 @@ var pipeline=[{$match:{"assignment":{$lt:4}}},//filtreleme
               {$group:{"_id":"$assignment", "max_point":{$max:"$points"}}},
               {$sort:{"max_point":-1}}];
 db.grades.aggregate(pipeline);
-
-
 
 //3-ismi A ile başlayan documentların toplam puanlarını
 //hesaplayıp listeleyelim.
@@ -216,7 +212,6 @@ use('okul')
 var pipeline=[{$match:{"name":{$regex:"^A"}}},
               {$group:{"_id":null, "total_points":{$sum:"$points"}}}];
 db.grades.aggregate(pipeline);
-
 
 //4-points değeri 19 dan düşük olan documentların
 //sayısını bulunuz.
@@ -259,12 +254,8 @@ use("okul");
 var pipeline=[
     {$addFields:{"result":{$sum:["$midterm","$final"]}}},
     {$sort:{"result":1}}
-  
 ];
 db.exams.aggregate(pipeline);
-
-
-
 
 //6-accounting collectionında her bir documentda expense ve earn ile
 //birlikte total_expense ve total_earn olarak toplam gider ve gelirleri
@@ -273,7 +264,6 @@ db.exams.aggregate(pipeline);
 use("okul");
 var pipeline=[
     {$addFields:{"total_expense":{$sum:"$expense"}, "total_earn":{$sum:"$earn"}}}
-
 ];
 db.accounting.aggregate(pipeline);
 
@@ -282,8 +272,6 @@ db.accounting.aggregate(pipeline);
 //7-accounting collectionında her bir documentda 
 // toplam gider ve gelirleri ve net karı(net_balance)
 //listeleyelim.
-
-
 
 use("okul");
 var pipeline=[
